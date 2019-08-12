@@ -1,0 +1,31 @@
+version: "3"
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8181:80"
+    networks:
+      - default
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      args:
+        USER_ID: $APP_USER_ID
+    environment:
+      APP_SECRET: $APP_SECRET
+      APP_ENV: $APP_ENV
+    networks:
+      - default
+    volumes:
+      - ../app/:/var/www/
+
+networks:
+  default:
+    driver: bridge
