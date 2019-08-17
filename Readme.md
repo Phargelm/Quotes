@@ -17,12 +17,16 @@ Explore the file `devops/.env`. Feel free to change any default environment vari
 ```
 MAILER_DSN=smtp://user:pass@smtp.example.com
 ```
-After changes in `devops/.env` restart docker container:
+After changes in `devops/.env` restart docker containers:
 ```
-docker-compose down
+docker-compose down && ./start.sh
 ```
 #### Test
 In order to run functional tests execute:
 ```
-docker exec -it <php_container_id> composer test
+docker exec -it <container_id> bin/phpunit
+```
+Placeholder `<php_container_id>` need to be replaced by your actual php container id. To figure out id, check the list of your containers:
+```
+docker ps
 ```
