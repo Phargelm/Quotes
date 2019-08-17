@@ -19,7 +19,7 @@ MAILER_DSN=smtp://user:pass@smtp.example.com
 ```
 After changes in `devops/.env` restart docker containers:
 ```
-docker-compose down && ./start.sh
+cd devops && docker-compose down && ./start.sh
 ```
 #### Test
 In order to run functional tests execute:
