@@ -11,7 +11,7 @@ class QuotesSubscriber implements EventSubscriberInterface
 {
     private $mailer;
     private $senderAddress;
-
+    
     public function __construct(MailerInterface $mailer, string $senderAddress)
     {
         $this->mailer = $mailer;
