@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/styles/quotes.css">
+    <title>Quotes</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <h2>Stocks Quotes</h2>
+          <form id="quotes-form">
+            <div class="form-group">
+                <label for="company-symbol">Company Symbol</label>
+                <input type="text"
+                  class="form-control"
+                  id="company-symbol"
+                  name="company-symbol"
+                  placeholder="AAAA"
+                  data-validation='["required", "company-symbol"]'>
+            </div>
+            <div class="form-group">
+                <label for="start-date">Start Date</label>
+                <input type="text"
+                  class="form-control date"
+                  id="start-date"
+                  name="start-date"
+                  placeholder="YYYY-mm-dd"
+                  data-validation='["required", "date"]'>
+            </div>
+            <div class="form-group">
+                <label for="end-date">End Date</label>
+                <input type="text"
+                  class="form-control date"
+                  id="end-date"
+                  name="end-date"
+                  placeholder="YYYY-mm-dd"
+                  data-validation='["required", "date"]'>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="foo@bar.com"
+                  data-validation='["email", "required"]'>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+
+        <div class="col-lg-6">
+          <div id="chart-container"></div>
+        </div>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <table id="quotes-table" class="display">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="/scripts/moment.min.js"></script>
+    <script src="/scripts/validator.js"></script>
+    <script src="/scripts/quotes.js"></script>
+  </body>
+</html>

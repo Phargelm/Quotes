@@ -9,6 +9,8 @@ services:
       - "8181:80"
     networks:
       - default
+    volumes:
+      - ../app/public/:/var/www/
     depends_on:
       - php
 
@@ -21,6 +23,7 @@ services:
     environment:
       APP_SECRET: $APP_SECRET
       APP_ENV: $APP_ENV
+      MAILER_DSN: $MAILER_DSN
     networks:
       - default
     volumes:

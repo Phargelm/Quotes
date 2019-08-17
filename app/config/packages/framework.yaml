@@ -10,7 +10,13 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
 
+    validation:
+        enabled: true
+
     #esi: true
     #fragments: true
     php_errors:
         log: true
+
+    serializer:
+        name_converter: App\Core\Serializing\SpinalCaseToCamelCaseConverter

@@ -1,0 +1,16 @@
+App\Model\GetQuotesDTO:
+    getters:
+        companySymbol:
+            - NotBlank: ~
+            - App\Core\Validation\CompanySymbolExists: ~
+        email:
+            - NotBlank: ~
+            - Email: ~
+        startDate:
+            - NotBlank: ~
+            - Date: ~
+            - LessThanOrEqual: 
+                propertyPath: endDate
+        endDate:
+            - NotBlank: ~
+            - Date: ~

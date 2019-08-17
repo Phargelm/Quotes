@@ -1,3 +1,12 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+  path: /
+  controller: App\Controller\QuotesController::index
+
+getQuotes:
+  path: /quotes
+  controller: App\Controller\QuotesController::getQuotes
+
+
+getConmpany:
+  path: /companies/{symbol}
+  controller: App\Controller\QuotesController::getCompany
