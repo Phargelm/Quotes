@@ -23,11 +23,38 @@ services:
     environment:
       APP_SECRET: $APP_SECRET
       APP_ENV: $APP_ENV
+      MYSQL_DB: $APP_MYSQL_DB
+      MYSQL_USER: $APP_MYSQL_USER
+      MYSQL_PASSWORD: $APP_MYSQL_PASSWORD
+      MYSQL_HOST: $APP_MYSQL_HOST
+      MYSQL_PORT: $APP_MYSQL_PORT
+      MYSQL_TEST_DB: $APP_MYSQL_TEST_DB
+      MYSQL_TEST_USER: $APP_MYSQL_TEST_USER
+      MYSQL_TEST_PASSWORD: $APP_MYSQL_TEST_PASSWORD
       MAILER_DSN: $MAILER_DSN
     networks:
       - default
     volumes:
       - ../app/:/var/www/
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: $APP_MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $APP_MYSQL_DB
+      MYSQL_USER: $APP_MYSQL_USER
+      MYSQL_PASSWORD: $APP_MYSQL_PASSWORD
+    ports:
+      - 3406:3306
+    networks:
+      - default
+    volumes:
+      - database:/var/lib/mysql
+
+volumes:
+  database:
 
 networks:
   default:

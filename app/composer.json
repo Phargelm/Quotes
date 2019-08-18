@@ -13,12 +13,14 @@
         "symfony/framework-bundle": "4.3.*",
         "symfony/http-client": "4.3.*",
         "symfony/mailer": "4.3.*",
+        "symfony/orm-pack": "^1.0",
         "symfony/serializer-pack": "^1.0",
         "symfony/twig-bundle": "4.3.*",
         "symfony/validator": "4.3.*",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.2",
         "symfony/browser-kit": "4.3.*",
         "symfony/phpunit-bridge": "^4.3"
     },
@@ -56,6 +58,17 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "test": [
+            "php bin/console doctrine:database:drop --env=test --force --if-exists",
+            "php bin/console doctrine:database:create --env=test",
+            "php bin/console cache:clear --env=test --no-warmup",
+            "php bin/console doctrine:cache:clear-metadata --env=test --flush",
+            "php bin/console doctrine:cache:clear-query --env=test --flush",
+            "php bin/console doctrine:cache:clear-result --env=test --flush",
+            "php bin/console doctrine:migrations:migrate --env=test",
+            "php bin/console doctrine:fixtures:load --env=test --no-interaction",
+            "php bin/phpunit"
         ]
     },
     "conflict": {

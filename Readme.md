@@ -2,7 +2,7 @@
 #### Overview
 Quotes is an application that is used to display historical quotes for the company by the date range in the table format as well as in chart.
 #### Setup
-This application is containerized using Docker. In order to setup development environment the latest versions of `docker` and `docker-compose` are required. After pulling repository, execute:
+This application is containerized using Docker. In order to setup development environment the latest versions of `docker` and `docker-compose` are required. All commands bellow assumes that your present directory - is the project root. After pulling repository, execute:
 ```
 cd devops && ./start.sh
 ```
@@ -21,12 +21,16 @@ After changes in `devops/.env` restart docker containers:
 ```
 cd devops && docker-compose down && ./start.sh
 ```
+#### Database
+In order to avoid parsing csv file on each request in order to get companies symbols the local database is used to persist parsed data. After setup all actual companies data imported from NADAQ server to the local database automaticaly. Thus, we can parse csv only once and persist for future requests. More over, we can refresh companies data in local db, by executing command:
+```
+docker exec -it <php_container_id> php bin/console app:import-companies
+```
+(placeholder `<php_container_id>` need to be replaced by your actual php container id. To figure out id, check the list of your containers: `docker ps`)
+
+Therefore no redeploy is needed in order to actualize the list of companies symbols.
 #### Test
 In order to run functional tests execute:
 ```
-docker exec -it <container_id> bin/phpunit
-```
-Placeholder `<php_container_id>` need to be replaced by your actual php container id. To figure out id, check the list of your containers:
-```
-docker ps
+docker exec -it <php_container_id> composer test
 ```

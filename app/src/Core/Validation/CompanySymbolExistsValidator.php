@@ -29,9 +29,8 @@ class CompanySymbolExistsValidator extends ConstraintValidator
         if (!is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
-
-        $companiesList = $this->quotesService->getCompaniesList();
-        if (!isset($companiesList[$value])) {
+        
+        if (!$this->quotesService->getCompany($value)) {
             $this->context->buildViolation($constraint->message)
             ->setParameter('{{ symbol }}', $value)
             ->addViolation();

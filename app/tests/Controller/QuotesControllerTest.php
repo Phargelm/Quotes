@@ -50,11 +50,11 @@ class QuotesControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Success
-        $client->request('GET', '/companies/AAPL');
+        $client->request('GET', '/companies/GOOGL');
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $parsedResponse = json_decode($response->getContent(), true);
-        $this->assertEquals('Apple Inc.', $parsedResponse[1]);
+        $this->assertEquals('Alphabet Inc.', $parsedResponse['name']);
 
         // Fail
         $client->request('GET', '/companies/!y7%');

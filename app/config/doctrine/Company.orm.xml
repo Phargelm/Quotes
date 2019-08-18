@@ -1,0 +1,12 @@
+<doctrine-mapping>
+  <entity name="App\Entity\Company" table="companies" repository-class="App\Repository\CompanyRepository">
+    <id name="id" type="integer">
+        <generator strategy="AUTO"/>
+    </id>
+    <field name="symbol" type="string" length="10" unique="true"/>
+    <field name="name" type="string" length="250"/>
+    <field name="ipoYear" type="string" length="4" nullable="true"/>
+    <field name="sector" type="string" nullable="true"/>
+    <field name="industry" type="string" nullable="true"/>
+  </entity>
+</doctrine-mapping>

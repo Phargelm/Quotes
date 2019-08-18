@@ -4,6 +4,7 @@
  */
 
 let validators = {
+
     "company-symbol": function(value) {
         if (value.trim() == '') {
             return;
@@ -22,6 +23,11 @@ let validators = {
         });
         return deferred.promise();
     },
+
+    /**
+     *  Despite validators below are not async those return already resolved deferred object
+     * in order to be consistent with async validators, like "company-symbol" above.
+     */
     "required": function(value) {
         let deferred = $.Deferred();
         if (value.trim() == '') {

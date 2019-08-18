@@ -21,7 +21,4 @@ services:
 
     App\Core\RequestToDTOConverter:
         tags: [request.param_converter]
-
-    App\Service\QuotesService\QuotesService:
-        arguments: ['%kernel.project_dir%/config/companylist.csv']
     

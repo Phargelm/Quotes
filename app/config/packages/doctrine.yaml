@@ -1,0 +1,27 @@
+parameters:
+    app.local.db_name: '%env(resolve:MYSQL_DB)%'
+    app.local.user: '%env(resolve:MYSQL_USER)%'
+    app.local.password: '%env(resolve:MYSQL_PASSWORD)%'
+
+doctrine:
+    dbal:
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        host: '%env(MYSQL_HOST)%'
+        port: '%env(MYSQL_PORT)%'
+        dbname: '%app.local.db_name%'
+        user: '%app.local.user%'
+        password: '%app.local.password%'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App\Entity:
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine'
+                prefix: 'App\Entity'

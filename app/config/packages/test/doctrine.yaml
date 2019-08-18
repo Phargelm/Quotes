@@ -1,0 +1,4 @@
+parameters:
+    app.local.db_name: '%env(resolve:MYSQL_TEST_DB)%'
+    app.local.user: '%env(resolve:MYSQL_TEST_USER)%'
+    app.local.password: '%env(resolve:MYSQL_TEST_PASSWORD)%'

@@ -4,9 +4,10 @@ namespace App\Service\Utils;
 
 use App\Service\QuotesService\QuotesStorageInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class QuandleApiClient implements QuotesStorageInterface
+class QuandlApiClient implements QuotesStorageInterface
 {
     private const API_URL = 'https://www.quandl.com/api/v3/datasets/WIKI/%s.csv';
 
@@ -25,6 +26,11 @@ class QuandleApiClient implements QuotesStorageInterface
             'start_date' => $startDate->format('Y-m-d'),
             'end_date' => $endDate->format('Y-m-d')
         ]]);
+
+        if ($response->getStatusCode() == Response::HTTP_NOT_FOUND) {
+            return [];
+        }
+
         return $this->parseRawData($response->getContent());
     }
 

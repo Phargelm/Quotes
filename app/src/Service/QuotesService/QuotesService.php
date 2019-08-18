@@ -2,51 +2,36 @@
 
 namespace App\Service\QuotesService;
 
+use App\Entity\Company;
+use App\Repository\CompanyRepository;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class QuotesService
 {
-    private $companiesList;
+    private $companyRepository;
     private $quotesStorage;
     private $eventDispatcher;
-
+    
     public function __construct(
-        string $companiesFilename,
         QuotesStorageInterface $quotesStorage,
+        CompanyRepository $companyRepository,
         EventDispatcherInterface $eventDispatcher)
     {
-        $this->companiesList = $this->parseCompaniesData($companiesFilename);
+        $this->companyRepository = $companyRepository;
         $this->quotesStorage = $quotesStorage;
         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getQuotes(string $companySymbol, \DateTime $startDate, \DateTime $endDate, string $email): array
     {
-        $companyName = $this->companiesList[$companySymbol][1];
-        $event = new QuotesRequestedEvent($companyName, $startDate, $endDate, $email);
+        $company = $this->companyRepository->findBySymbol($companySymbol);
+        $event = new QuotesRequestedEvent($company->getName(), $startDate, $endDate, $email);
         $this->eventDispatcher->dispatch($event, QuotesRequestedEvent::NAME);
         return $this->quotesStorage->getQuotes($companySymbol, $startDate, $endDate);
     }
     
-    public function getCompaniesList(): array
+    public function getCompany(string $symbol): ?Company
     {
-        return $this->companiesList;
-    }
-
-    private function parseCompaniesData($filename): array
-    {
-        if(!file_exists($filename) || !is_readable($filename)) {
-            throw new \Exception("File $filename does not exists or is not readable.");
-        }
-
-        $result = [];
-        if (($resource = fopen($filename, 'r')) !== false) {
-            while (($row = fgetcsv($resource)) !== false ) {
-                $result[$row[0]] = $row;
-            }
-            fclose($resource);
-        }
-        
-        return $result;
+        return $this->companyRepository->findBySymbol($symbol);
     }
 }

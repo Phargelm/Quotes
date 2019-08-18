@@ -43,7 +43,7 @@ $(function() {
             }
         },
         axisY: {
-            title: "Closing Price (in USD)",
+            title: "Price",
             includeZero: false,
             valueFormatString: "$##0.00",
             crosshair: {
@@ -79,6 +79,9 @@ $(function() {
             $("button[type='submit']").prop('disabled', true);
             return $.ajax({url: "/quotes", data: $(event.target).serialize()});
         }).done(function(data) {
+            if (data.length == 0) {
+                alert('No quotes found');
+            }
             $("button[type='submit']").prop('disabled', false);
             datatable.clear();
             datatable.rows.add(data);

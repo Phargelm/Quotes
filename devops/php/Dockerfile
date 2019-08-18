@@ -13,6 +13,8 @@ RUN docker-php-source extract \
 
 COPY php/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
+# Wait-for is a third-party lib: https://github.com/Eficode/wait-for
+COPY wait-for.sh /app-scripts/wait-for.sh
 COPY entrypoint.sh /app-scripts/entrypoint.sh
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
@@ -26,4 +28,4 @@ WORKDIR /var/www
 
 USER www-data
 
-ENTRYPOINT [ "/app-scripts/entrypoint.sh" ]
+ENTRYPOINT [ "/app-scripts/wait-for.sh", "db:3306", "--timeout=100", "--", "/app-scripts/entrypoint.sh" ]
