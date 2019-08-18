@@ -22,7 +22,7 @@ After changes in `devops/.env` restart docker containers:
 cd devops && docker-compose down && ./start.sh
 ```
 #### Database
-In order to avoid parsing csv file on each request in order to get companies symbols the local database is used to persist parsed data. After setup all actual companies data imported from NADAQ server to the local database automaticaly. Thus, we can parse csv only once and persist for future requests. More over, we can refresh companies data in local db, by executing command:
+In order to avoid parsing csv file on each request in order to get companies symbols the local database is used to persist parsed data. After setup all actual companies data imported from NASDAQ server to the local database automaticaly. Thus, we can parse csv only once and persist for future requests. More over, we can refresh companies data in local db, by executing command:
 ```
 docker exec -it <php_container_id> php bin/console app:import-companies
 ```
